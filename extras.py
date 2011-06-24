@@ -30,7 +30,7 @@ class UnicodeReader(Reader):
 
     def __call__(self, text):
         import unicodedata
-        
+
         text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')
         return Reader.__call__(self, text)
 
@@ -49,12 +49,12 @@ class HTMLReader(UnicodeReader):
         else:
             return Reader.__call__(self, text)
 
-    
+
 class SimpleReader(Reader):
     '''
     Reader subclass that doesn't perform any advanced analysis of the text
     '''
-    
+
     def __call__(self, text):
         text = text.lower()
         text = self.preprocess(text)
@@ -70,7 +70,7 @@ class FastStemmer(Stemmer):
 
     def __init__(self):
         from stemming import porter
-        
+
         Stemmer.__init__(self, porter)
 
 
@@ -86,8 +86,8 @@ class NaiveRater(Rater):
         unique_tags = set(t for t in tags
                           if len(t.string) > 1 and t.rating > 0.0)
         return sorted(unique_tags)
-    
-        
+
+
 def build_dict_from_nltk(output_file, corpus=None, stopwords=None,
                          stemmer=Stemmer(), measure='IDF', verbose=False):
     '''
@@ -103,19 +103,19 @@ def build_dict_from_nltk(output_file, corpus=None, stopwords=None,
     @param verbose:     whether information on the progress should be printed
                         on screen
     '''
-    
+
     from build_dict import build_dict
     import nltk
     import pickle
 
     if not (corpus and stopwords):
         nltk.download('reuters')
-        
+
     corpus = corpus or nltk.corpus.reuters
     stopwords = stopwords or nltk.corpus.reuters.words('stopwords')
 
     corpus_list = []
-    
+
     if verbose: print 'Processing corpus...'
     for file in corpus.fileids():
         doc = [stemmer(Tag(w.lower())).stem for w in corpus.words(file)
@@ -128,24 +128,5 @@ def build_dict_from_nltk(output_file, corpus=None, stopwords=None,
     if verbose: print 'Building dictionary... '
     dictionary = build_dict(corpus_list, stopwords, measure)
     with open(output_file, 'wb') as out:
-        pickle.dump(dictionary, out, -1) 
+        pickle.dump(dictionary, out, -1)
 
-
-
-    
-
-    
-
-     
-
-    
-
-        
-
-    
-
-
-
-
-
-        

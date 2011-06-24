@@ -45,15 +45,21 @@ def build_dict(corpus, stopwords=None, measure='IDF'):
     import collections
     import math
 
+    try:
+        from collections import Counter
+    except ImportError:
+        # Python 2.5 and 2.6 lack the Counter class, so use the back-ported version
+        from counter import Counter
+
     dictionary = {}
 
     if measure == 'ICF':
         words = [w for doc in corpus for w in doc]
-        
-        term_count = collections.Counter(words)
+
+        term_count = Counter(words)
         total_count = len(words)
         scale = math.log(total_count)
-    
+
         for w, cnt in term_count.iteritems():
             dictionary[w] = math.log(total_count / (cnt + 1)) / scale
 
@@ -70,11 +76,11 @@ def build_dict(corpus, stopwords=None, measure='IDF'):
 
         for w, cnt in term_count.iteritems():
             dictionary[w] = math.log(corpus_size / (cnt + 1)) / scale
-            
+
     if stopwords:
         for w in stopwords:
             dictionary[w] = 0.0
-    
+
     return dictionary
 
 
@@ -114,14 +120,14 @@ def build_dict_from_files(output_file, corpus_files, stopwords_file=None,
     if verbose: print 'Building dictionary... '
     dictionary = build_dict(corpus, stopwords, measure)
     with open(output_file, 'wb') as out:
-        pickle.dump(dictionary, out, -1) 
-    
+        pickle.dump(dictionary, out, -1)
+
 
 if __name__ == '__main__':
 
     import getopt
     import sys
-    
+
     try:
         options = getopt.getopt(sys.argv[1:], 'o:s:')
         output_file = options[0][0][1]
@@ -132,6 +138,6 @@ if __name__ == '__main__':
         exit(1)
 
     build_dict_from_files(output_file, corpus, stopwords_file, verbose=True)
-    
-               
+
+
 

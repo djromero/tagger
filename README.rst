@@ -3,14 +3,14 @@ tagger
 ======
 
 Module for extracting tags from text documents.
-                   
+
 Copyright (C) 2011 by Alessandro Presta
 
 Configuration
 =============
 
 Dependencies:
-python2.7, stemming, nltk (optional), lxml (optional)
+python2.5, stemming, nltk (optional), lxml (optional)
 
 You can install the stemming package with::
 
@@ -36,7 +36,7 @@ Running the module as a script::
 Example::
 
     $ ./tagger.py tests/*
-    Loading dictionary... 
+    Loading dictionary...
     Tags for  tests/bbc1.txt :
     ['bin laden', 'obama', 'pakistan', 'killed', 'raid']
     Tags for  tests/bbc2.txt :
@@ -68,7 +68,7 @@ A very straightforward way of doing this would be to just match all the words wi
 The **Stemmer** tries to recognise the root of a word, in order to identify slightly different forms. This is already a quite complicated task, and it's clearly language-specific.
 The *stem* module in the NLTK package provides algorithms for many languages
 and integrates nicely with the tagger::
-    
+
     import nltk
     # an English stemmer using Lancaster's algorithm
     mystemmer = Stemmer(nltk.stem.LancasterStemmer)
@@ -83,8 +83,8 @@ The **Rater** takes the list of words contained in the document, together with a
 
 It turns out that just working on the information contained in the document itself is not enough, because it says nothing about the frequency of a term in the language. For this reason, an early "off-line" phase of the algorithm consists in analysing a *corpus* (i.e. a sample of documents written in the same language) to build a dictionary of known words. This is taken care by the **build_dict()** function.
 It is advised to build your own dictionaries, and the **build_dict_from_nltk()** function in the *extras* module enables you to use the corpora included in NLTK::
-    
-    build_dict_from_nltk(output_file, nltk.corpus.brown, 
+
+    build_dict_from_nltk(output_file, nltk.corpus.brown,
                          nltk.corpus.stopwords.words('english'), measure='ICF')
 
 So far, we may define the relevance of a word as the product of two distinct functions: one that depends on the document itself, and one that depends on the corpus.

@@ -28,14 +28,14 @@ tagger
 ======
 
 Module for extracting tags from text documents.
-                   
+
 Copyright (C) 2011 by Alessandro Presta
 
 Configuration
 =============
 
 Dependencies:
-python2.7, stemming, nltk (optional), lxml (optional), tkinter (optional)
+python2.5, stemming, nltk (optional), lxml (optional), tkinter (optional)
 
 You can install the stemming package with::
 
@@ -61,7 +61,7 @@ Running the module as a script::
 Example::
 
     $ ./tagger.py tests/*
-    Loading dictionary... 
+    Loading dictionary...
     Tags for  tests/bbc1.txt :
     ['bin laden', 'obama', 'pakistan', 'killed', 'raid']
     Tags for  tests/bbc2.txt :
@@ -87,12 +87,18 @@ from __future__ import division
 import collections
 import re
 
+try:
+    from collections import Counter
+except ImportError:
+    # Python 2.5 and 2.6 lack the Counter class, so use the back-ported version
+    from counter import Counter
+
 
 class Tag:
     '''
     General class for tags (small units of text)
     '''
-    
+
     def __init__(self, string, stem=None, rating=1.0, proper=False,
                  terminal=False):
         '''
@@ -107,13 +113,13 @@ class Tag:
 
         @returns: a new L{Tag} object
         '''
-            
+
         self.string  = string
         self.stem = stem or string
         self.rating = rating
         self.proper = proper
         self.terminal = terminal
-        
+
     def __eq__(self, other):
         return self.stem == other.stem
 
@@ -131,7 +137,7 @@ class MultiTag(Tag):
     '''
     Class for aggregates of tags (usually next to each other in the document)
     '''
-    
+
     def __init__(self, tail, head=None):
         '''
         @param tail: the L{Tag} object to add to the first part (head)
@@ -139,7 +145,7 @@ class MultiTag(Tag):
 
         @returns: a new L{MultiTag} object
         '''
-        
+
         if not head:
             Tag.__init__(self, tail.string, tail.stem, tail.rating,
                          tail.proper, tail.terminal)
@@ -155,7 +161,7 @@ class MultiTag(Tag):
 
             self.subratings = head.subratings + [tail.rating]
             self.rating = self.combined_rating()
-                                           
+
     def combined_rating(self):
         '''
         Method that computes the multitag's rating from the ratings of unit
@@ -163,15 +169,15 @@ class MultiTag(Tag):
 
         (the default implementation uses the geometric mean - with a special
         treatment for proper nouns - but this method can be overridden)
-        
+
         @returns: the rating of the multitag
         '''
-        
+
         # by default, the rating of a multitag is the geometric mean of its
         # unit subtags' ratings
         product = reduce(lambda x, y: x * y, self.subratings, 1.0)
         root = self.size
-        
+
         # but proper nouns shouldn't be penalized by stopwords
         if product == 0.0 and self.proper:
             nonzero = [r for r in self.subratings if r > 0.0]
@@ -179,10 +185,10 @@ class MultiTag(Tag):
                 return 0.0
             product = reduce(lambda x, y: x * y, nonzero, 1.0)
             root = len(nonzero)
-            
+
         return product ** (1.0 / root)
 
-    
+
 class Reader:
     '''
     Class for parsing a string of text to obtain tags
@@ -196,7 +202,7 @@ class Reader:
     match_paragraphs = re.compile(r'[\.\?!\t\n\r\f\v]+')
     match_phrases = re.compile(r'[,;:\(\)\[\]\{\}<>]+')
     match_words = re.compile(r'[\w\-\'_/&]+')
-    
+
     def __call__(self, text):
         '''
         @param text: the string of text to be tagged
@@ -248,15 +254,15 @@ class Reader:
 
         @returns:    the processed text
         '''
-        
+
         text = self.match_apostrophes.sub('\'', text)
         return text
 
-    
+
 class Stemmer:
     '''
     Class for extracting the stem of a word
-    
+
     (by default it uses a simple open-source implementation of Porter's
     algorithm; this can be improved a lot, so experimenting with different ones
     is advisable; nltk.stem provides different algorithms for many languages)
@@ -272,7 +278,7 @@ class Stemmer:
 
         @returns: a new L{Stemmer} object
         '''
-        
+
         if not stemmer:
             from stemming import porter2
             stemmer = porter2
@@ -287,8 +293,8 @@ class Stemmer:
 
         string = self.preprocess(tag.string)
         tag.stem = self.stemmer.stem(string)
-        return tag    
-        
+        return tag
+
     def preprocess(self, string):
         '''
         @param string: a string to be treated before passing it to the stemmer
@@ -298,13 +304,14 @@ class Stemmer:
 
         # delete hyphens and underscores
         string = self.match_hyphens.sub('', string)
-        
+
         # get rid of contractions and possessive forms
         match = self.match_contractions.match(string)
-        if match: string = match.group(1)
-        
+        if match:
+            string = match.group(1)
+
         return string
-    
+
 
 class Rater:
     '''
@@ -324,10 +331,10 @@ class Rater:
 
         @returns: a new L{Rater} object
         '''
-        
+
         self.weights = weights
         self.multitag_size = multitag_size
-        
+
     def __call__(self, tags):
         '''
         @param tags: a list of (preferably stemmed) tags
@@ -339,25 +346,25 @@ class Rater:
         multitags = self.create_multitags(tags)
 
         # keep most frequent version of each tag
-        clusters = collections.defaultdict(collections.Counter)
+        clusters = collections.defaultdict(Counter)
         proper = collections.defaultdict(int)
         ratings = collections.defaultdict(float)
-        
+
         for t in multitags:
             clusters[t][t.string] += 1
             if t.proper:
                 proper[t] += 1
                 ratings[t] = max(ratings[t], t.rating)
 
-        term_count = collections.Counter(multitags)
-                
+        term_count = Counter(multitags)
+
         for t, cnt in term_count.iteritems():
             t.string = clusters[t].most_common(1)[0][0]
             proper_freq = proper[t] / cnt
             if proper_freq >= 0.5:
                 t.proper = True
                 t.rating = ratings[t]
-        
+
         # purge duplicates, one-character tags and stopwords
         unique_tags = set(t for t in term_count
                           if len(t.string) > 1 and t.rating > 0.0)
@@ -373,29 +380,29 @@ class Rater:
                         unique_tags.discard(s)
                     else:
                         unique_tags.discard(t)
-        
+
         return sorted(unique_tags)
 
     def rate_tags(self, tags):
         '''
         @param tags: a list of tags to be assigned a rating
         '''
-        
-        term_count = collections.Counter(tags)
-        
+
+        term_count = Counter(tags)
+
         for t in tags:
             # rating of a single tag is term frequency * weight
             t.rating = term_count[t] / len(tags) * self.weights.get(t.stem, 1.0)
-    
+
     def create_multitags(self, tags):
         '''
         @param tags: a list of tags (respecting the order in the text)
 
         @returns: a list of multitags
         '''
-        
+
         multitags = []
-        
+
         for i in xrange(len(tags)):
             t = MultiTag(tags[i])
             multitags.append(t)
@@ -407,8 +414,8 @@ class Rater:
                     multitags.append(t)
 
         return multitags
-    
-    
+
+
 class Tagger:
     '''
     Master class for tagging text documents
@@ -425,7 +432,7 @@ class Tagger:
 
         @returns: a new L{Tagger} object
         '''
-        
+
         self.reader = reader
         self.stemmer = stemmer
         self.rater = rater
@@ -436,7 +443,7 @@ class Tagger:
         @param tags_number: number of best tags to be returned
 
         Returns: a list of (hopefully) relevant tags
-        ''' 
+        '''
 
         tags = self.reader(text)
         tags = map(self.stemmer, tags)
@@ -451,20 +458,38 @@ if __name__ == '__main__':
     import glob
     import pickle
     import sys
+    from optparse import OptionParser
 
-    if len(sys.argv) < 2:
+    usage = "usage: %prog [options] file1 file2..."
+    parser = OptionParser(usage=usage)
+
+    parser.add_option("", "--dict", dest="dictionary", default="data/dict.pkl",
+                      action="store", type="string", metavar="DICT",
+                      help="pickled dictionary for weights")
+    parser.add_option("", "--multitag_size", dest="multitag_size", default=3,
+                      action="store", type="int", metavar="TAG_SIZE",
+                      help="max words per tag")
+    parser.add_option("", "--tags_number", dest="tags_number", default=5,
+                      action="store", type="int", metavar="TAGS_NUMBER",
+                      help="number of tags to return per document")
+    # parser.add_option("-d", "--debug", dest="debug", default=False,
+    #                   action="store_true",
+    #                   help="debug mode")
+
+    (options, args) = parser.parse_args()
+
+    if not args:
         print 'No arguments given, running tests: '
         documents = glob.glob('tests/*')
     else:
-        documents = sys.argv[1:]
-    
-    print 'Loading dictionary... '
-    weights = pickle.load(open('data/dict.pkl', 'rb'))
+        documents = args
 
-    tagger = Tagger(Reader(), Stemmer(), Rater(weights))
+    weights = pickle.load(open(options.dictionary, 'rb'))
+
+    tagger = Tagger(Reader(), Stemmer(), Rater(weights, multitag_size=options.multitag_size))
 
     for doc in documents:
         with open(doc, 'r') as file:
             print 'Tags for ', doc, ':'
-            print tagger(file.read())
-          
+            print tagger(file.read(), tags_number=options.tags_number)
+
