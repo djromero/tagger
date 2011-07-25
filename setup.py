@@ -8,5 +8,6 @@ setup(name='Tagger',
       url='https://github.com/apresta/tagger',
       packages=['tagger'],
       package_dir={'tagger': '.'},
+      package_data={'tagger': ['data/*.pkl']},
       requires=['stemming (>=1.0)', 'nltk (>=2.0)'],
       provides=['tagger'])
