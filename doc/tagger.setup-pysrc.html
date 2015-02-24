@@ -56,20 +56,28 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="tagger.setup-module.html">Module tagger.setup</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">distutils</tt><tt class="py-op">.</tt><tt class="py-name">core</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module tagger.setup=tagger.setup-module.html"><a title="tagger.setup" class="py-name" href="#" onclick="return doclink('link-0', 'setup', 'link-0');">setup</a></tt> </tt>
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
 <a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
-<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt id="link-1" class="py-name"><a title="tagger.setup" class="py-name" href="#" onclick="return doclink('link-1', 'setup', 'link-0');">setup</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">'Tagger'</tt><tt class="py-op">,</tt> </tt>
-<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line">      <tt class="py-name">version</tt><tt class="py-op">=</tt><tt class="py-string">'20110709'</tt><tt class="py-op">,</tt> </tt>
-<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line">      <tt class="py-name">description</tt><tt class="py-op">=</tt><tt class="py-string">'A module for extracting relevant tags from text documents.'</tt><tt class="py-op">,</tt> </tt>
-<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line">      <tt class="py-name">author</tt><tt class="py-op">=</tt><tt class="py-string">'Alessandro Presta'</tt><tt class="py-op">,</tt> </tt>
-<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line">      <tt class="py-name">author_email</tt><tt class="py-op">=</tt><tt class="py-string">'alessandro.presta@gmail.com'</tt><tt class="py-op">,</tt> </tt>
-<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">      <tt class="py-name">url</tt><tt class="py-op">=</tt><tt class="py-string">'https://github.com/apresta/tagger'</tt><tt class="py-op">,</tt> </tt>
-<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line">      <tt class="py-name">packages</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">'tagger'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
-<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">      <tt class="py-name">package_dir</tt><tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-string">'tagger'</tt><tt class="py-op">:</tt> <tt class="py-string">'.'</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
-<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">      <tt class="py-name">package_data</tt><tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-string">'tagger'</tt><tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-string">'data/*.pkl'</tt><tt class="py-op">]</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
-<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">      <tt class="py-name">requires</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">'nltk (&gt;=3.0.1)'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
-<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">      <tt class="py-name">provides</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">'tagger'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
-<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line">    <tt class="py-keyword">from</tt> <tt class="py-name">setuptools</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module tagger.setup=tagger.setup-module.html"><a title="tagger.setup" class="py-name" href="#" onclick="return doclink('link-0', 'setup', 'link-0');">setup</a></tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">except</tt> <tt class="py-name">ImportError</tt><tt class="py-op">:</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">"Tagger now needs setuptools in order to build. Install it using"</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line">            <tt class="py-string">" your package manager (usually python-setuptools) or via pip (pip"</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">            <tt class="py-string">" install setuptools)."</tt><tt class="py-op">)</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt id="link-1" class="py-name"><a title="tagger.setup" class="py-name" href="#" onclick="return doclink('link-1', 'setup', 'link-0');">setup</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">'Tagger'</tt><tt class="py-op">,</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">      <tt class="py-name">version</tt><tt class="py-op">=</tt><tt class="py-string">'20110709'</tt><tt class="py-op">,</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">      <tt class="py-name">description</tt><tt class="py-op">=</tt><tt class="py-string">'A module for extracting relevant tags from text documents.'</tt><tt class="py-op">,</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">      <tt class="py-name">author</tt><tt class="py-op">=</tt><tt class="py-string">'Alessandro Presta'</tt><tt class="py-op">,</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">      <tt class="py-name">author_email</tt><tt class="py-op">=</tt><tt class="py-string">'alessandro.presta@gmail.com'</tt><tt class="py-op">,</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">      <tt class="py-name">url</tt><tt class="py-op">=</tt><tt class="py-string">'https://github.com/apresta/tagger'</tt><tt class="py-op">,</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">      <tt class="py-name">packages</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">'tagger'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">      <tt class="py-name">package_dir</tt><tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-string">'tagger'</tt><tt class="py-op">:</tt> <tt class="py-string">'.'</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">      <tt class="py-name">package_data</tt><tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-string">'tagger'</tt><tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-string">'data/*.pkl'</tt><tt class="py-op">]</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">      <tt class="py-name">install_requires</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">'nltk'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">      <tt class="py-name">provides</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-string">'tagger'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -102,7 +110,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Feb 24 10:26:55 2015
+    Generated by Epydoc 3.0.1 on Tue Feb 24 10:50:22 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

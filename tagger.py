@@ -14,7 +14,7 @@ Configuration
 =============
 
 Dependencies:
-python2.5+, nltk (optional), lxml (optional), tkinter (optional)
+python2.6+, nltk, lxml (optional), tkinter (optional)
 
 Usage
 =====
@@ -66,7 +66,7 @@ from functools import reduce
 try:
     from collections import Counter
 except ImportError:
-    # Python 2.5 and 2.6 lack the Counter class, so use the back-ported version
+    # Python 2.6 lacks the Counter class, so use the back-ported version
     from .counter import Counter
 
 

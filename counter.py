@@ -1,7 +1,6 @@
 # Counter class from Python 2.7.1 module collections.Counter
 #
 # Provided for backwards compatibility with Python 2.6
-# (and possibly Python 2.5 - untested)
 
 ## PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
 ## --------------------------------------------

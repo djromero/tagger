@@ -27,7 +27,7 @@ def build_dict(corpus, stopwords=None, measure='IDF'):
     try:
         from collections import Counter
     except ImportError:
-        # Python 2.5 and 2.6 lack the Counter class, so use the back-ported version
+        # Python 2.6 lacks the Counter class, so use the back-ported version
         from .counter import Counter
 
     dictionary = {}

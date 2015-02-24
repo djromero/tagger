@@ -6,15 +6,13 @@ Module for extracting tags from text documents.
 
 Copyright (C) 2011 by Alessandro Presta
 
+image:: https://img.shields.io/travis/bjacobel/tagger.svg
+
 Configuration
 =============
 
 Dependencies:
-python2.5, stemming, nltk (optional), lxml (optional)
-
-You can install the stemming package with::
-
-    $ easy_install stemming
+python2.6+, nltk, lxml (optional)
 
 Usage
 =====
