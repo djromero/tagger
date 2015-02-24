@@ -14,6 +14,9 @@
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th>&nbsp;&nbsp;&nbsp;<a
@@ -27,19 +30,14 @@
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-  <!-- Project homepage -->
-      <th class="navbar" align="right" width="100%">
-        <table border="0" cellpadding="0" cellspacing="0">
-          <tr><th class="navbar" align="center"
-            ><a class="navbar" target="_top" href="http://github.com/apresta/tagger">tagger</a></th>
-          </tr></table></th>
+      <th class="navbar" width="100%"></th>
   </tr>
 </table>
 <table width="100%" cellpadding="0" cellspacing="0">
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        Module&nbsp;tagger
+        Package&nbsp;tagger
       </span>
     </td>
     <td>
@@ -55,124 +53,37 @@
     </td>
   </tr>
 </table>
-<!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module tagger</h1><p class="nomargin-top"><span class="codelink"><a href="tagger-pysrc.html">source&nbsp;code</a></span></p>
-<p>====== tagger ======</p>
-  <p>Module for extracting tags from text documents.</p>
-  <p>Copyright (C) 2011 by Alessandro Presta</p>
-  <h1 class="heading">Configuration</h1>
-    <p>Dependencies: python2.7, stemming, nltk (optional), lxml (optional),
-    tkinter (optional)</p>
-    <p>You can install the stemming package with:</p>
-<pre class="literalblock">
-   $ easy_install stemming
-</pre>
-  <h1 class="heading">Usage</h1>
-    <p>Tagging a text document from Python:</p>
-<pre class="literalblock">
-   import tagger
-   weights = pickle.load(open('data/dict.pkl', 'rb')) # or your own dictionary
-   myreader = tagger.Reader() # or your own reader class
-   mystemmer = tagger.Stemmer() # or your own stemmer class
-   myrater = tagger.Rater(weights) # or your own... (you got the idea)
-   mytagger = Tagger(myreader, mystemmer, myrater)
-   best_3_tags = mytagger(text_string, 3)
-</pre>
-    <p>Running the module as a script:</p>
-<pre class="literalblock">
-   $ ./tagger.py &lt;text document(s) to tag&gt;
-</pre>
-    <p>Example:</p>
-<pre class="literalblock">
-   $ ./tagger.py tests/*
-   Loading dictionary... 
-   Tags for  tests/bbc1.txt :
-   ['bin laden', 'obama', 'pakistan', 'killed', 'raid']
-   Tags for  tests/bbc2.txt :
-   ['jo yeates', 'bristol', 'vincent tabak', 'murder', 'strangled']
-   Tags for  tests/bbc3.txt :
-   ['snp', 'party', 'election', 'scottish', 'labour']
-   Tags for  tests/guardian1.txt :
-   ['bin laden', 'al-qaida', 'killed', 'pakistan', 'al-fawwaz']
-   Tags for  tests/guardian2.txt :
-   ['clegg', 'tory', 'lib dem', 'party', 'coalition']
-   Tags for  tests/post1.txt :
-   ['sony', 'stolen', 'playstation network', 'hacker attack', 'lawsuit']
-   Tags for  tests/wikipedia1.txt :
-   ['universe', 'anthropic principle', 'observed', 'cosmological', 'theory']
-   Tags for  tests/wikipedia2.txt :
-   ['beetroot', 'beet', 'betaine', 'blood pressure', 'dietary nitrate']
-   Tags for  tests/wikipedia3.txt :
-   ['the lounge lizards', 'jazz', 'john lurie', 'musical', 'albums']
-</pre>
-
-<!-- ==================== CLASSES ==================== -->
-<a name="section-Classes"></a>
+<!-- ==================== PACKAGE DESCRIPTION ==================== -->
+<h1 class="epydoc">Package tagger</h1><p class="nomargin-top"><span class="codelink"><a href="tagger-pysrc.html">source&nbsp;code</a></span></p>
+<!-- ==================== SUBMODULES ==================== -->
+<a name="section-Submodules"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="left"><span class="table-header">Submodules</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Classes"
+         ><span class="options">[<a href="#section-Submodules"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
     </table>
   </td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="tagger.Tag-class.html" class="summary-name">Tag</a><br />
-      General class for tags (small units of text)
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="tagger.MultiTag-class.html" class="summary-name">MultiTag</a><br />
-      Class for aggregates of tags (usually next to each other in the 
-        document)
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="tagger.Reader-class.html" class="summary-name">Reader</a><br />
-      Class for parsing a string of text to obtain tags
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="tagger.Stemmer-class.html" class="summary-name">Stemmer</a><br />
-      Class for extracting the stem of a word
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="tagger.Rater-class.html" class="summary-name">Rater</a><br />
-      Class for estimating the relevance of tags
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="tagger.Tagger-class.html" class="summary-name">Tagger</a><br />
-      Master class for tagging text documents
-    </td>
-  </tr>
+  <tr><td class="summary">
+  <ul class="nomargin">
+    <li> <strong class="uidlink"><a href="tagger.build_dict-module.html">tagger.build_dict</a></strong>: <em class="summary">Usage: build_dict.py -o &lt;output file&gt; -s &lt;stopwords 
+        file&gt; &lt;list of files&gt;</em>    </li>
+    <li> <strong class="uidlink"><a href="tagger.counter-module.html">tagger.counter</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="tagger.extras-module.html">tagger.extras</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="tagger.setup-module.html">tagger.setup</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="tagger.tagger-module.html">tagger.tagger</a></strong>: <em class="summary">====== tagger ======</em>    </li>
+  </ul></td></tr>
 </table>
+
+<br />
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -194,7 +105,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
+      hash(x)
     </td>
   </tr>
 </table>
@@ -202,6 +114,9 @@
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th>&nbsp;&nbsp;&nbsp;<a
@@ -215,18 +130,13 @@
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-  <!-- Project homepage -->
-      <th class="navbar" align="right" width="100%">
-        <table border="0" cellpadding="0" cellspacing="0">
-          <tr><th class="navbar" align="center"
-            ><a class="navbar" target="_top" href="http://github.com/apresta/tagger">tagger</a></th>
-          </tr></table></th>
+      <th class="navbar" width="100%"></th>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 13 11:13:02 2011
+    Generated by Epydoc 3.0.1 on Tue Feb 24 10:26:55 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

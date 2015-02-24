@@ -239,9 +239,7 @@ class Stemmer:
     '''
     Class for extracting the stem of a word
 
-    (by default it uses a simple open-source implementation of Porter's
-    algorithm; this can be improved a lot, so experimenting with different ones
-    is advisable; nltk.stem provides different algorithms for many languages)
+    (by default it uses NLTK's implementation of the Snowball (Porter2) stemmer)
     '''
 
     match_contractions = re.compile(r'(\w+)\'(m|re|d|ve|s|ll|t)?')
