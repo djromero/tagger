@@ -1,4 +1,12 @@
-from distutils.core import setup
+import sys
+
+try:
+    from setuptools import setup
+except ImportError:
+    print("Tagger now needs setuptools in order to build. Install it using"
+            " your package manager (usually python-setuptools) or via pip (pip"
+            " install setuptools).")
+    sys.exit(1)
 
 setup(name='Tagger',
       version='20110709',
@@ -9,5 +17,5 @@ setup(name='Tagger',
       packages=['tagger'],
       package_dir={'tagger': '.'},
       package_data={'tagger': ['data/*.pkl']},
-      requires=['nltk (>=3.0.1)'],
+      install_requires=['nltk'],
       provides=['tagger'])
