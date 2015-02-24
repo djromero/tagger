@@ -23,12 +23,7 @@ def build_dict(corpus, stopwords=None, measure='IDF'):
 
     import collections
     import math
-
-    try:
-        from collections import Counter
-    except ImportError:
-        # Python 2.6 lacks the Counter class, so use the back-ported version
-        from .counter import Counter
+    from collections import Counter
 
     dictionary = {}
 

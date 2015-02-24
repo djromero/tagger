@@ -12,7 +12,7 @@ Configuration
 =============
 
 Dependencies:
-python2.6+, nltk, lxml (optional)
+python2.7+, nltk, lxml (optional)
 
 Usage
 =====

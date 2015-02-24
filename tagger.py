@@ -14,7 +14,7 @@ Configuration
 =============
 
 Dependencies:
-python2.6+, nltk, lxml (optional), tkinter (optional)
+python2.7+, nltk, lxml (optional), tkinter (optional)
 
 Usage
 =====
