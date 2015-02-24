@@ -25,10 +25,10 @@
 Usage: build_dict.py -o <output file> -s <stopwords file> <list of files>
 '''
 
-from __future__ import division
 
-from tagger import Stemmer
-from extras import SimpleReader
+
+from .tagger import Stemmer
+from .extras import SimpleReader
 
 def build_dict(corpus, stopwords=None, measure='IDF'):
     '''
@@ -49,7 +49,7 @@ def build_dict(corpus, stopwords=None, measure='IDF'):
         from collections import Counter
     except ImportError:
         # Python 2.5 and 2.6 lack the Counter class, so use the back-ported version
-        from counter import Counter
+        from .counter import Counter
 
     dictionary = {}
 
@@ -60,7 +60,7 @@ def build_dict(corpus, stopwords=None, measure='IDF'):
         total_count = len(words)
         scale = math.log(total_count)
 
-        for w, cnt in term_count.iteritems():
+        for w, cnt in term_count.items():
             dictionary[w] = math.log(total_count / (cnt + 1)) / scale
 
     elif measure == 'IDF':
@@ -74,7 +74,7 @@ def build_dict(corpus, stopwords=None, measure='IDF'):
             for w in words:
                 term_count[w] += 1
 
-        for w, cnt in term_count.iteritems():
+        for w, cnt in term_count.items():
             dictionary[w] = math.log(corpus_size / (cnt + 1)) / scale
 
     if stopwords:
@@ -103,7 +103,7 @@ def build_dict_from_files(output_file, corpus_files, stopwords_file=None,
 
     import pickle
 
-    if verbose: print 'Processing corpus...'
+    if verbose: print('Processing corpus...')
     corpus = []
     for filename in corpus_files:
         with open(filename, 'r') as doc:
@@ -112,12 +112,12 @@ def build_dict_from_files(output_file, corpus_files, stopwords_file=None,
 
     stopwords = None
     if stopwords_file:
-        if verbose: print 'Processing stopwords...'
+        if verbose: print('Processing stopwords...')
         with open(stopwords_file, 'r') as sw:
             stopwords = reader(sw.read())
         stopwords = [w.stem for w in map(stemmer, stopwords)]
 
-    if verbose: print 'Building dictionary... '
+    if verbose: print('Building dictionary... ')
     dictionary = build_dict(corpus, stopwords, measure)
     with open(output_file, 'wb') as out:
         pickle.dump(dictionary, out, -1)
@@ -134,7 +134,7 @@ if __name__ == '__main__':
         stopwords_file = options[0][1][1]
         corpus = options[1]
     except:
-        print __doc__
+        print(__doc__)
         exit(1)
 
     build_dict_from_files(output_file, corpus, stopwords_file, verbose=True)
