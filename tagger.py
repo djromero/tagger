@@ -35,11 +35,7 @@ Configuration
 =============
 
 Dependencies:
-python2.5, stemming, nltk (optional), lxml (optional), tkinter (optional)
-
-You can install the stemming package with::
-
-    $ easy_install stemming
+python2.5+, nltk (optional), lxml (optional), tkinter (optional)
 
 Usage
 =====
@@ -275,14 +271,14 @@ class Stemmer:
     def __init__(self, stemmer=None):
         '''
         @param stemmer: an object or module with a 'stem' method (defaults to
-                        stemming.porter2)
+                        nltk.PorterStemmer)
 
         @returns: a new L{Stemmer} object
         '''
 
         if not stemmer:
-            from stemming import porter2
-            stemmer = porter2
+            from nltk import PorterStemmer
+            stemmer = PorterStemmer
         self.stemmer = stemmer
 
     def __call__(self, tag):

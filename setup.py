@@ -9,5 +9,5 @@ setup(name='Tagger',
       packages=['tagger'],
       package_dir={'tagger': '.'},
       package_data={'tagger': ['data/*.pkl']},
-      requires=['stemming (>=1.0)', 'nltk (>=2.0)'],
+      requires=['nltk (>=3.0.1)'],
       provides=['tagger'])
