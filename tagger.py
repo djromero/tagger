@@ -352,6 +352,7 @@ class Rater:
         # purge duplicates, one-character tags and stopwords
         unique_tags = set(t for t in term_count
                           if len(t.string) > 1 and t.rating > 0.0)
+
         # remove redundant tags
         for t, cnt in term_count.items():
             words = t.stem.split()
@@ -376,7 +377,7 @@ class Rater:
 
         for t in tags:
             # rating of a single tag is term frequency * weight
-            t.rating = term_count[t] / len(tags) * self.weights.get(t.stem, 1.0)
+            t.rating = 1.0 * term_count[t] / len(tags) * self.weights.get(t.stem, 1.0)
 
     def create_multitags(self, tags):
         '''
@@ -441,7 +442,6 @@ if __name__ == '__main__':
 
     import glob
     import pickle
-    import sys
     from optparse import OptionParser
 
     usage = "usage: %prog [options] file1 file2..."
