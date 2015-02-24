@@ -8,4 +8,4 @@ install:
   - pip install setuptools
   - python setup.py install
 script:
-  - python tagger.py tests/*
+  - python -m tagger tests/*
