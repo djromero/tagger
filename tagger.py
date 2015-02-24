@@ -247,17 +247,27 @@ class Stemmer:
     match_contractions = re.compile(r'(\w+)\'(m|re|d|ve|s|ll|t)?')
     match_hyphens = re.compile(r'\b[\-_]\b')
 
-    def __init__(self, stemmer=None):
+    def __init__(self, stemmer=None, language=None):
         '''
         @param stemmer: an object or module with a 'stem' method (defaults to
-                        nltk.PorterStemmer)
+                        nltk.stem.snowball.SnowballStemmer)
+
+        @param language: language of the text you will be stemming. Only
+                         supported if you are using the default SnowballStemmer.
+                         Must be one of the following languages: [danish dutch
+                         english finnish french german hungarian italian
+                         norwegian porter portuguese romanian russian spanish
+                         swedish]. Defaults to 'english'.
 
         @returns: a new L{Stemmer} object
         '''
 
         if not stemmer:
             from nltk.stem.snowball import SnowballStemmer
-            stemmer = SnowballStemmer
+            if language:
+                stemmer = SnowballStemmer(language)
+            else:
+                stemmer = SnowballStemmer("english")
         self.stemmer = stemmer
 
     def __call__(self, tag):
