@@ -256,8 +256,8 @@ class Stemmer:
         '''
 
         if not stemmer:
-            from nltk import PorterStemmer
-            stemmer = PorterStemmer
+            from nltk.stem.snowball import SnowballStemmer
+            stemmer = SnowballStemmer
         self.stemmer = stemmer
 
     def __call__(self, tag):
