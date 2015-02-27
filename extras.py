@@ -107,5 +107,5 @@ def build_dict_from_nltk(output_file, corpus=None, stopwords=None,
     if verbose: print('Building dictionary... ')
     dictionary = build_dict(corpus_list, stopwords, measure)
     with open(output_file, 'wb') as out:
-        pickle.dump(dictionary, out, -1, protocol=2)
+        pickle.dump(dictionary, out, protocol=2)
 
