@@ -94,7 +94,7 @@ def build_dict_from_files(output_file, corpus_files, stopwords_file=None,
     if verbose: print('Building dictionary... ')
     dictionary = build_dict(corpus, stopwords, measure)
     with open(output_file, 'wb') as out:
-        pickle.dump(dictionary, out, -1)
+        pickle.dump(dictionary, out, -1, protocol=2)
 
 
 if __name__ == '__main__':
