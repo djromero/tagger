@@ -6,7 +6,7 @@ Module for extracting tags from text documents.
 
 Copyright (C) 2011 by Alessandro Presta
 
-.. image:: https://img.shields.io/travis/bjacobel/tagger.svg
+.. image:: https://img.shields.io/travis/bowdoinorient/tagger.svg
 
 Configuration
 =============
