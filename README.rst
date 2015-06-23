@@ -6,7 +6,8 @@ Module for extracting tags from text documents.
 
 Copyright (C) 2011 by Alessandro Presta
 
-.. image:: https://img.shields.io/travis/bowdoinorient/tagger.svg
+.. image:: https://img.shields.io/travis/BowdoinOrient/tagger.svg
+    :target: https://travis-ci.org/BowdoinOrient/tagger
 
 Configuration
 =============
