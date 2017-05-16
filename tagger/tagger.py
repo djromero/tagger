@@ -175,6 +175,7 @@ class Reader:
     '''
 
     match_apostrophes = re.compile(r'`|’')
+    match_contractions = re.compile(r'(\w+)\'(m|re|d|ve|s|ll|t)?')
     match_paragraphs = re.compile(r'[\.\?!\t\n\r\f\v]+')
     match_phrases = re.compile(r'[,;:\(\)\[\]\{\}<>]+')
     match_words = re.compile(r'[\w\-\'_/&]+')
@@ -201,27 +202,37 @@ class Reader:
                 # first phrase of a paragraph
                 words = self.match_words.findall(phrases[0])
                 if len(words) > 1:
-                    tags.append(Tag(words[0].lower()))
+                    tags.append(Tag(self.clean_word(words[0])))
                     for w in words[1:-1]:
-                        tags.append(Tag(w.lower(), proper=w[0].isupper()))
-                    tags.append(Tag(words[-1].lower(),
+                        tags.append(Tag(self.clean_word(w), proper=w[0].isupper()))
+                    tags.append(Tag(self.clean_word(words[-1]),
                                     proper=words[-1][0].isupper(),
                                     terminal=True))
                 elif len(words) == 1:
-                    tags.append(Tag(words[0].lower(), terminal=True))
+                    tags.append(Tag(self.clean_word(words[0]), terminal=True))
 
             # following phrases
             for phr in phrases[1:]:
                 words = self.match_words.findall(phr)
                 if len(words) > 1:
                     for w in words[:-1]:
-                        tags.append(Tag(w.lower(), proper=w[0].isupper()))
+
+                        tags.append(Tag(self.clean_word(w), proper=w[0].isupper()))
                 if len(words) > 0:
-                    tags.append(Tag(words[-1].lower(),
+                    tags.append(Tag(self.clean_word(words[-1]),
                                     proper=words[-1][0].isupper(),
                                     terminal=True))
 
         return tags
+
+    def clean_word(self, word):
+        word = word.lower()
+        # get rid of contractions and possessive forms
+        match = self.match_contractions.match(word)
+        if match:
+            word = match.group(1)
+
+        return word
 
     def preprocess(self, text):
         '''
@@ -232,6 +243,7 @@ class Reader:
         '''
 
         text = self.match_apostrophes.sub('\'', text)
+
         return text
 
 
@@ -242,7 +254,6 @@ class Stemmer:
     (by default it uses NLTK's implementation of the Snowball (Porter2) stemmer)
     '''
 
-    match_contractions = re.compile(r'(\w+)\'(m|re|d|ve|s|ll|t)?')
     match_hyphens = re.compile(r'\b[\-_]\b')
 
     def __init__(self, stemmer=None, language=None):
@@ -288,11 +299,6 @@ class Stemmer:
 
         # delete hyphens and underscores
         string = self.match_hyphens.sub('', string)
-
-        # get rid of contractions and possessive forms
-        match = self.match_contractions.match(string)
-        if match:
-            string = match.group(1)
 
         return string
 
