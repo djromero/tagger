@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-""" A tagger for English texts """
+""" A tagger for Spanish texts """
 
 from tagger import Tagger, Rater, Reader, Stemmer
 
 
-class EnglishTagger(Tagger):
+class SpanishTagger(Tagger):
 
     def __init__(self, dictionary_path=None, reader=None, stemmer=None, rater=None):
-        super(EnglishTagger, self).__init__(reader, stemmer, rater)
+        super(SpanishTagger, self).__init__(reader, stemmer, rater)
 
         if self.reader is None:
             self.reader = Reader()
@@ -27,6 +27,6 @@ if __name__ == "__main__":
     import os
 
     base_dir = os.path.expanduser("~/dict")
-    dict_path = os.path.join(base_dir, 'en.pkl')
-    english_tagger = EnglishTagger(dict_path)
-    print(english_tagger("Beats X review: Apple's neckbuds for the everyday"))
+    dict_path = os.path.join(base_dir, 'es.pkl')
+    english_tagger = SpanishTagger(dict_path)
+    print(spanish_tagger("10 años del iPhone: 5 cosas que el popular teléfono de Apple cambió en el mundo"))
