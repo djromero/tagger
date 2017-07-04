@@ -9,7 +9,7 @@ except ImportError:
     sys.exit(1)
 
 setup(name='Tagger',
-      version='0.2.2',
+      version='0.2.3',
       description='A module for extracting relevant tags from text documents.',
       author='Alessandro Presta',
       author_email='alessandro.presta@gmail.com',
