@@ -474,7 +474,8 @@ if __name__ == '__main__':
     else:
         documents = args
 
-    weights = pickle.load(open(options.dictionary, 'rb'))
+    with open(options.dictionary, 'rb') as fh:
+        weights = pickle.load(fh)
 
     tagger = Tagger(Reader(), Stemmer(), Rater(weights, multitag_size=options.multitag_size))
 

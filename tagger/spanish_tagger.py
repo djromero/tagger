@@ -19,7 +19,8 @@ class SpanishTagger(Tagger):
 
         if self.rater is None and dictionary_path is not None:
             import pickle
-            weights = pickle.load(open(dictionary_path, 'rb'))
+            with open(dictionary_path, 'rb') as fh:
+                weights = pickle.load(fh)
             self.rater = Rater(weights, multitag_size=1)
 
 
